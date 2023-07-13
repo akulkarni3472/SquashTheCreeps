@@ -1,0 +1,97 @@
+[gd_scene load_steps=9 format=3 uid="uid://bvu2chip5k5dq"]
+
+[ext_resource type="PackedScene" uid="uid://bx4x35runs22g" path="res://Player/player.tscn" id="1_wshw2"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ubrhs"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_7vlvk"]
+sky_material = SubResource("ProceduralSkyMaterial_ubrhs")
+
+[sub_resource type="Environment" id="Environment_hn3fo"]
+background_mode = 2
+sky = SubResource("Sky_7vlvk")
+tonemap_mode = 2
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+glow_enabled = true
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ruj8i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3tpvk"]
+size = Vector3(1, 0.0255837, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_w3564"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yintl"]
+size = Vector3(23.9348, 1, 14.5503)
+
+[node name="Node" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hn3fo")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 25, 20)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_wshw2")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(60, 0, 0, 0, 60, 0, 0, 0, 60, 0, -1.005, 0)
+physics_material_override = SubResource("PhysicsMaterial_ruj8i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_3tpvk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.025, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_w3564")
+
+[node name="Walls" type="Node3D" parent="StaticBody3D"]
+transform = Transform3D(0.0166667, 0, 0, 0, 0.0166667, 0, 0, 0, 0.0166667, 0, 0.01675, 0)
+
+[node name="Wall 1" type="Node3D" parent="StaticBody3D/Walls"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="StaticBody3D/Walls/Wall 1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Walls/Wall 1/StaticBody3D"]
+transform = Transform3D(-5.81362e-08, -4.76048, 0, 1.33, -2.08087e-07, 0, 0, 0, 4.79349, -29.6625, 13.8974, 0)
+shape = SubResource("BoxShape3D_yintl")
+
+[node name="Wall 2" type="Node3D" parent="StaticBody3D/Walls"]
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="StaticBody3D/Walls/Wall 2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Walls/Wall 2/StaticBody3D2"]
+transform = Transform3D(-5.81362e-08, -4.76048, 0, 1.33, -2.08087e-07, 0, 0, 0, 4.79349, -29.6625, 13.8974, 0)
+shape = SubResource("BoxShape3D_yintl")
+
+[node name="Wall 3" type="Node3D" parent="StaticBody3D/Walls"]
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="StaticBody3D/Walls/Wall 3"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Walls/Wall 3/StaticBody3D3"]
+transform = Transform3D(-5.81362e-08, -4.76048, 0, 1.33, -2.08087e-07, 0, 0, 0, 4.79349, -29.6625, 13.8974, 0)
+shape = SubResource("BoxShape3D_yintl")
+
+[node name="Wall 4" type="Node3D" parent="StaticBody3D/Walls"]
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="StaticBody3D/Walls/Wall 4"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Walls/Wall 4/StaticBody3D4"]
+transform = Transform3D(-5.81362e-08, -4.76048, 0, 1.33, -2.08087e-07, 0, 0, 0, 4.79349, -29.6625, 13.8974, 0)
+shape = SubResource("BoxShape3D_yintl")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="."]
