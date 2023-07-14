@@ -4,6 +4,9 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @export var min_speed = 10
 @export var max_speed = 20
+@export var jump_impulse = 20
+
+signal squashed
 
 func _physics_process(_delta):
 	move_and_slide()
@@ -19,4 +22,8 @@ func initialize(start_position, player_position):
 	velocity = velocity.rotated(Vector3.UP, rotation.y)
 
 func _on_visible_on_screen_notifier_3d_screen_exited():
+	queue_free()
+	
+func squash():
+	squashed.emit()
 	queue_free()
