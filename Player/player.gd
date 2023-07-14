@@ -1,15 +1,17 @@
 extends CharacterBody3D
 
 
-@export var speed = 10
-@export var jump_vel = 20
-@export var bounce_impulse = 16
+@export var speed = 14
+@export var jump_impulse = 20
+@export var bounce_impulse = 10
 @export var lerp_val = 10
 
 @onready var pivot = $Pivot
 @onready var animation_player = $AnimationPlayer
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
+signal hit
 
 func _physics_process(delta):
 	fall(delta)
@@ -41,7 +43,7 @@ func move(delta):
 
 func jump():
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = jump_vel
+		velocity.y = jump_impulse
 
 func squash_mobs():
 	for index in range(get_slide_collision_count()):
@@ -53,3 +55,10 @@ func squash_mobs():
 			if Vector3.UP.dot(collision.get_normal()) > 0.1:
 				mob.squash()
 				velocity.y = bounce_impulse
+
+func die():
+	hit.emit()
+	queue_free()
+
+func _on_mob_detector_body_entered(body):
+	die() # Replace with function body.

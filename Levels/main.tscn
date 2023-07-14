@@ -1,8 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://bvu2chip5k5dq"]
+[gd_scene load_steps=15 format=3 uid="uid://bvu2chip5k5dq"]
 
 [ext_resource type="Script" path="res://Levels/main.gd" id="1_ji6xn"]
 [ext_resource type="PackedScene" uid="uid://bx4x35runs22g" path="res://Player/player.tscn" id="1_wshw2"]
 [ext_resource type="PackedScene" uid="uid://c87tepqs5lbj3" path="res://Mob/mob.tscn" id="2_o87sw"]
+[ext_resource type="FontFile" uid="uid://cb4xv23q2cncf" path="res://Assets/fonts/Montserrat-Medium.ttf" id="4_2ohjf"]
+[ext_resource type="Script" path="res://Levels/ScoreLabel.gd" id="5_xa2q6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ubrhs"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -39,6 +41,10 @@ size = Vector3(1, 0.0255837, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_w3564"]
 
+[sub_resource type="Theme" id="Theme_ou1l6"]
+default_font = ExtResource("4_2ohjf")
+default_font_size = 22
+
 [node name="Main" type="Node"]
 script = ExtResource("1_ji6xn")
 mob_scene = ExtResource("2_o87sw")
@@ -51,10 +57,10 @@ autostart = true
 environment = SubResource("Environment_hn3fo")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965925, 0, -0.965925, 0.258819, 0, 36.235, 15.77)
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 16.185, 18.555)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 27, 0)
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_wshw2")]
@@ -64,23 +70,13 @@ collision_mask = 6
 curve = SubResource("Curve3D_skkls")
 
 [node name="SpawnLocator" type="PathFollow3D" parent="SpawnPath"]
-transform = Transform3D(0.00444418, 0, -0.99999, 0, 1, 0, 0.99999, 0, 0.00444418, -26.966, 0, -25.4937)
+transform = Transform3D(0.00444287, 0, -0.999989, 0, 1, 0, 0.999989, 0, 0.00444287, -26.966, 0, -25.4937)
 
 [node name="Walls" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-visible = false
-
-[node name="Wall 1" type="Node3D" parent="Walls"]
-
-[node name="Wall 2" type="Node3D" parent="Walls"]
-
-[node name="Wall 3" type="Node3D" parent="Walls"]
-
-[node name="Wall 4" type="Node3D" parent="Walls"]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Walls"]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/StaticBody3D"]
 transform = Transform3D(-5.81362e-08, -4.76048, 0, 1.33, -2.08087e-07, 0, 0, 0, 4.79349, -29.6625, 13.8974, 0)
@@ -89,7 +85,7 @@ shape = SubResource("BoxShape3D_yintl")
 [node name="StaticBody3D2" type="StaticBody3D" parent="Walls"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 collision_layer = 4
-collision_mask = 7
+collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/StaticBody3D2"]
 transform = Transform3D(-5.81362e-08, -4.76048, 0, 1.33, -2.08087e-07, 0, 0, 0, 4.79349, -29.6625, 13.8974, 0)
@@ -98,7 +94,7 @@ shape = SubResource("BoxShape3D_yintl")
 [node name="StaticBody3D3" type="StaticBody3D" parent="Walls"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 collision_layer = 4
-collision_mask = 7
+collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/StaticBody3D3"]
 transform = Transform3D(-5.81362e-08, -4.76048, 0, 1.33, -2.08087e-07, 0, 0, 0, 4.79349, -29.6625, 13.8974, 0)
@@ -107,14 +103,14 @@ shape = SubResource("BoxShape3D_yintl")
 [node name="StaticBody3D4" type="StaticBody3D" parent="Walls"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 collision_layer = 4
-collision_mask = 7
+collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/StaticBody3D4"]
 transform = Transform3D(-5.81362e-08, -4.76048, 0, 1.33, -2.08087e-07, 0, 0, 0, 4.79349, -29.6625, 13.8974, 0)
 shape = SubResource("BoxShape3D_yintl")
 
 [node name="Ground" type="StaticBody3D" parent="."]
-transform = Transform3D(60, 0, 0, 0, 60, 0, 0, 0, 60, 0, -1.005, 0)
+transform = Transform3D(2087.73, 0, 0, 0, 60, 0, 0, 0, 2087.73, 0, -1.005, 0)
 collision_layer = 4
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_ruj8i")
@@ -126,4 +122,52 @@ shape = SubResource("BoxShape3D_3tpvk")
 transform = Transform3D(1, 0, 0, 0, 0.025, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_w3564")
 
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 67.0
+offset_bottom = 31.0
+
+[node name="Retry" type="ColorRect" parent="UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 10.7463
+anchor_bottom = 17.3871
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.00113, 1)
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="UI/Retry"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Press Enter To Retry"
+
+[node name="ScoreLabel" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 2.179
+anchor_right = 2.179
+offset_left = 0.00698853
+offset_top = 33.0
+offset_right = 91.007
+offset_bottom = 72.0
+theme = SubResource("Theme_ou1l6")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Score: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_xa2q6")
+
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
